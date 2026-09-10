@@ -1,0 +1,25 @@
+services:
+  mc-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MINECRAFT_VERSION: ${MINECRAFT_VERSION:-1.21.1}
+    container_name: mc-server
+    restart: unless-stopped
+    ports:
+      - "8888:${SERVER_PORT:-25565}"
+    environment:
+      EULA_ACCEPTED: ${EULA_ACCEPTED}
+      SERVER_NAME: ${SERVER_NAME:-My Minecraft Server}
+      DIFFICULTY: ${DIFFICULTY:-normal}
+      MAX_PLAYERS: ${MAX_PLAYERS:-20}
+      GAME_MODE: ${GAME_MODE:-survival}
+      SERVER_PORT: ${SERVER_PORT:-25565}
+      MEMORY_MIN: ${MEMORY_MIN:-1G}
+      MEMORY_MAX: ${MEMORY_MAX:-2G}
+    volumes:
+      - mc-data:/server
+
+volumes:
+  mc-data:
