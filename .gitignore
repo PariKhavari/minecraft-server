@@ -1,0 +1,17 @@
+# --- Secrets / sensitive configuration ---
+.env
+
+# --- Server runtime data (world saves, logs, caches) ---
+# Should the project ever use bind-mounted folders for local testing,
+# these are excluded so no world/save data ever enters version control.
+world/
+logs/
+*.log
+eula.txt
+server.properties
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
