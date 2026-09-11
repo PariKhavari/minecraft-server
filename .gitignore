@@ -1,4 +1,3 @@
-# --- Secrets / sensitive configuration ---
 .env
 
 # --- Server runtime data (world saves, logs, caches) ---

@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 # ---- Base image: minimal JRE, no prebuilt Minecraft image ----
 FROM eclipse-temurin:25-jre-jammy
 

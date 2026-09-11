@@ -9,6 +9,7 @@ if [ "${EULA_ACCEPTED}" != "true" ]; then
 fi
 echo "eula=true" > eula.txt
 
+
 # --- Build server.properties from environment variables ---
 cat > server.properties <<EOF
 motd=${SERVER_NAME}
