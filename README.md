@@ -21,10 +21,13 @@ The purpose of this repository is to provide a reproducible, portable way to bui
 - Docker Engine (20.10+)
 - Docker Compose plugin (v2+)
 
+> [!IMPORTANT]
+> You must set `EULA_ACCEPTED=true` in your `.env` file before starting the server. This confirms you accept the [Minecraft EULA](https://www.minecraft.net/en-us/eula) — the server will refuse to start otherwise.
+
 **Steps:**
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/PariKhavari/minecraft-server.git
+cd minecraft-server
 cp .env.example .env
 # set EULA_ACCEPTED=true in .env before starting
 docker compose build
@@ -51,9 +54,11 @@ The following non-critical environment variables can be configured in `docker-co
 | `MAX_PLAYERS`    | `20`           | Maximum number of concurrent players         |
 | `EULA_ACCEPTED`  | `false`        | Must be set to `true` to accept the [Minecraft EULA](https://www.minecraft.net/en-us/eula); the server will not start otherwise |
 
+> [!NOTE]
 > No authentication secrets, tokens, or credentials are configured via environment variables in this repository, in line with the security guidelines below.
 
-> **EULA note:** Setting `EULA_ACCEPTED=true` causes the entrypoint script to generate `eula.txt` with `eula=true` inside the container at startup — this file is not committed to the repository, since accepting the EULA is a per-deployment decision.
+> [!NOTE]
+> Setting `EULA_ACCEPTED=true` causes the entrypoint script to generate `eula.txt` with `eula=true` inside the container at startup — this file is not committed to the repository, since accepting the EULA is a per-deployment decision.
 
 To change a value, edit the `environment:` section of the `mc-server` service in `docker-compose.yaml`, e.g.:
 ```yaml
@@ -83,7 +88,9 @@ Docker manages this volume internally (not a bind mount). Inspect its location w
 ```bash
 docker volume inspect mc-data
 ```
-Do **not** remove the `mc-data` volume (`docker volume rm`) unless you intend to reset the world.
+
+> [!CAUTION]
+> Do not remove the `mc-data` volume (`docker volume rm`) unless you intend to permanently reset the world — this deletes all world and player data with no way to recover it.
 
 ### Restart Behavior
 The service is configured with `restart: on-failure` (or `unless-stopped`), so the container automatically restarts if the Minecraft process crashes or the container otherwise terminates unexpectedly.
@@ -109,6 +116,9 @@ Before submitting or deploying this project, verify the following:
 3. **Resilience check**: manually kill the server process inside the container and confirm Docker restarts it automatically.
 
 4. **(Optional)** Connect with an actual Minecraft Java client to `<host>:8888`.
+
+> [!TIP]
+> Run the connectivity check as a quick script (`python app.py <host> <port>`) so it can be reused in automated testing instead of retyping the snippet above each time.
 
 ## Repository Structure
 ```
