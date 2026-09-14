@@ -1,0 +1,23 @@
+# --- Version control ---
+.git
+.gitignore
+
+# --- Secrets / environment ---
+.env
+.env.example
+
+# --- Docs (not needed inside the image) ---
+README.md
+
+# --- Server runtime data (would never exist at build time anyway) ---
+world/
+logs/
+*.log
+eula.txt
+server.properties
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
