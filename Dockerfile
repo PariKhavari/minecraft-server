@@ -25,14 +25,14 @@ RUN chmod +x /server/entrypoint.sh
 # ---- Default environment variables (container must always be able to start) ----
 # EULA_ACCEPTED has NO default of "true" on purpose: accepting Mojang's EULA is a
 # legal decision the operator must make explicitly via docker-compose/.env.
-ENV EULA_ACCEPTED="false"
-ENV SERVER_NAME="My Minecraft Server"
-ENV DIFFICULTY="normal"
-ENV MAX_PLAYERS="20"
-ENV GAME_MODE="survival"
-ENV SERVER_PORT="25565"
-ENV MEMORY_MIN="1G"
-ENV MEMORY_MAX="2G"
+ENV EULA_ACCEPTED="false" \
+    SERVER_NAME="My Minecraft Server" \
+    DIFFICULTY="normal" \
+    MAX_PLAYERS="20" \
+    GAME_MODE="survival" \
+    SERVER_PORT="25565" \
+    MEMORY_MIN="1G" \
+    MEMORY_MAX="2G"
 
 EXPOSE ${SERVER_PORT}
 
