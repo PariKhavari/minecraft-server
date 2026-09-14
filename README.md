@@ -98,27 +98,18 @@ The service is configured with `restart: on-failure` (or `unless-stopped`), so t
 ## Testing
 Before submitting or deploying this project, verify the following:
 
-1. **Connectivity check** using the [`mcstatus`](https://github.com/py-mine/mcstatus) Python library:
+1. **Connectivity check** using the included `app.py` script (based on [`mcstatus`](https://github.com/py-mine/mcstatus)):
    ```bash
    pip install mcstatus
+   python app.py <host>:8888
    ```
-   ```python
-   from mcstatus import JavaServer
-
-   server = JavaServer.lookup("<host>:8888")
-   status = server.status()
-   print(status.version.name, status.players.online)
-   ```
-   A successful response returns the server version and current player count.
+   A successful response prints the server version and current player count.
 
 2. **Persistence check**: restart the container (`docker compose restart`) and confirm the world/config data is unchanged.
 
 3. **Resilience check**: manually kill the server process inside the container and confirm Docker restarts it automatically.
 
 4. **(Optional)** Connect with an actual Minecraft Java client to `<host>:8888`.
-
-> [!TIP]
-> Run the connectivity check as a quick script (`python app.py <host> <port>`) so it can be reused in automated testing instead of retyping the snippet above each time.
 
 ## Repository Structure
 ```
@@ -129,5 +120,6 @@ Before submitting or deploying this project, verify the following:
 ├── app.py                 # Test script using mcstatus to verify server availability
 ├── .env.example           # Template for environment variables (copy to .env)
 ├── .gitignore
+├── .dockerignore          # Excludes non-essential files from the build context
 └── README.md
 ```
