@@ -1,4 +1,10 @@
+import sys
 from mcstatus import JavaServer
-server = JavaServer.lookup("localhost:8888")
+ 
+address = sys.argv[1]
+server = JavaServer.lookup(address)
 status = server.status()
-print(status.version.name, status.players.online)
+ 
+print(f"Server:  {address}")
+print(f"Version: {status.version.name}")
+print(f"Players: {status.players.online}/{status.players.max}")
